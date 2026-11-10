@@ -1,0 +1,8 @@
+{
+  "firestore": [
+    {
+      "database": "ai-studio-android-wasscepr-eb251851-d283-4db8-8479-6d829c2d920d",
+      "rules": "firestore.rules"
+    }
+  ]
+}

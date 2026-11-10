@@ -1,0 +1,83 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Registered Ghanaian SHS candidate profile",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "The unique Firebase Auth UID" },
+        "displayName": { "type": "string", "description": "Full name or alias" },
+        "email": { "type": "string", "description": "Student email address" },
+        "schoolName": { "type": "string", "description": "Senior High School name" },
+        "shsTrack": { "type": "string", "description": "SHS programme track" },
+        "totalXp": { "type": "integer", "description": "Weekly study and battle XP" },
+        "streakDays": { "type": "integer", "description": "Consecutive days studied" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Last update timestamp" }
+      },
+      "required": ["userId", "displayName", "email", "schoolName", "shsTrack", "totalXp", "streakDays"]
+    },
+    "ExamAttempt": {
+      "title": "Exam Attempt Record",
+      "description": "Completed WASSCE past paper or mock exam score",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "Owner student UID" },
+        "subjectId": { "type": "string", "description": "Subject identifier" },
+        "subjectName": { "type": "string", "description": "Subject display name" },
+        "year": { "type": "integer", "description": "Past paper year" },
+        "score": { "type": "integer", "description": "Raw correct answers count" },
+        "totalQuestions": { "type": "integer", "description": "Total questions count" },
+        "percentage": { "type": "integer", "description": "Score percentage" },
+        "grade": { "type": "string", "description": "Estimated WASSCE grade" },
+        "timeTakenSeconds": { "type": "integer", "description": "Duration in seconds" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Completion timestamp" }
+      },
+      "required": ["userId", "subjectId", "subjectName", "year", "score", "totalQuestions", "percentage", "grade"]
+    },
+    "SearchResearchItem": {
+      "title": "Google Search Grounded Research",
+      "description": "Up-to-date WAEC syllabus or syllabus update fact sheet",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "Student UID" },
+        "query": { "type": "string", "description": "User question or syllabus research query" },
+        "answer": { "type": "string", "description": "Search-grounded answer from gemini-3.8-flash" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Timestamp" }
+      },
+      "required": ["userId", "query", "answer"]
+    },
+    "AudioLectureNote": {
+      "title": "Transcribed Audio Note",
+      "description": "Transcribed classroom audio note generated with gemini-3.5-transcribe",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "Student UID" },
+        "title": { "type": "string", "description": "Lecture or note title" },
+        "subjectId": { "type": "string", "description": "Subject identifier" },
+        "transcriptText": { "type": "string", "description": "Verbatim transcript text" },
+        "aiStudyGuideSummary": { "type": "string", "description": "Gemini-generated revision guide" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp" }
+      },
+      "required": ["userId", "title", "subjectId", "transcriptText"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "User profile collection"
+    },
+    "/users/{userId}/attempts/{attemptId}": {
+      "schema": { "$ref": "#/entities/ExamAttempt" },
+      "description": "User completed exam attempts and scorecards"
+    },
+    "/users/{userId}/research/{researchId}": {
+      "schema": { "$ref": "#/entities/SearchResearchItem" },
+      "description": "User Google Search grounded WASSCE research items"
+    },
+    "/users/{userId}/audio_notes/{noteId}": {
+      "schema": { "$ref": "#/entities/AudioLectureNote" },
+      "description": "User transcribed audio lecture notes"
+    }
+  }
+}

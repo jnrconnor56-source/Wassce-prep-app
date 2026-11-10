@@ -1,0 +1,6 @@
+{
+  "name": "WASSCE Prep",
+  "description": "WASSCE syllabus tracker, offline past questions, Gemini AI textbook study guides, Google Search Grounding, classroom audio transcriber, and Firebase cloud sync for Ghanaian SHS students.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
